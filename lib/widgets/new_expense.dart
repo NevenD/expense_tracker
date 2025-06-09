@@ -14,6 +14,17 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
 
+  void _presentDatePicker() {
+    final now = DateTime.now();
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(now.year - 1, now.month, now.day),
+      lastDate: now,
+      locale: Locale.fromSubtags(languageCode: 'hr', countryCode: 'HR'),
+    );
+  }
+
   @override
   void dispose() {
     // only stateful widgets can have dispose method
@@ -35,13 +46,36 @@ class _NewExpenseState extends State<NewExpense> {
             maxLength: 50,
             decoration: const InputDecoration(labelText: 'Title'),
           ),
-          TextField(
-            controller: _amountController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              prefix: Text('\$'),
-              labelText: 'Amount',
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    prefix: Text('\$'),
+                    labelText: 'Amount',
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 16),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text('Selected Date'),
+                    IconButton(
+                      onPressed: () {
+                        _presentDatePicker();
+                      },
+                      icon: Icon(Icons.calendar_month),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           Row(
             children: [
