@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widgets/expenses_list/expenses_list_item.dart';
 import 'package:flutter/widgets.dart';
 
 class ExpensesList extends StatelessWidget {
@@ -11,7 +12,7 @@ class ExpensesList extends StatelessWidget {
     return ListView.builder(
       itemCount: expenses.length,
       itemBuilder: (ctx, index) {
-        return Text(expenses[index].title);
+        return ExpensesItem(expense: expenses[index]);
       },
     );
   }
