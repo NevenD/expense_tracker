@@ -50,6 +50,30 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  void _openAddExpensesOverlay() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              'Add Expense',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            TextField(decoration: const InputDecoration(labelText: 'Title')),
+            const SizedBox(height: 16),
+            TextField(decoration: const InputDecoration(labelText: 'Amount')),
+            const SizedBox(height: 16),
+            ElevatedButton(onPressed: () {}, child: const Text('Add Expense')),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,11 +82,7 @@ class _ExpensesState extends State<Expenses> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
-              // Logic to add a new expense
-              // For now, we will just print a message
-              print('Add Expense button pressed');
-            },
+            onPressed: _openAddExpensesOverlay,
           ),
         ],
       ),
