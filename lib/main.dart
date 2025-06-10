@@ -3,12 +3,28 @@ import 'package:expense_tracker/widgets/expenses.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 191, 104, 206),
+  seedColor: const Color.fromARGB(255, 96, 59, 181),
+);
+
+var kDarkColorScheme = ColorScheme.fromSeed(
+  seedColor: const Color.fromARGB(255, 5, 99, 125),
+  brightness: Brightness.dark,
 );
 
 void main() {
   runApp(
     MaterialApp(
+      darkTheme: ThemeData().copyWith(
+        colorScheme: kDarkColorScheme,
+        appBarTheme: const AppBarTheme().copyWith(
+          backgroundColor: kDarkColorScheme.onPrimaryContainer,
+          foregroundColor: kDarkColorScheme.primaryContainer,
+        ),
+        cardTheme: const CardThemeData().copyWith(
+          color: kDarkColorScheme.secondaryContainer,
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        ),
+      ),
       theme: ThemeData().copyWith(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
@@ -36,6 +52,7 @@ void main() {
           ),
         ),
       ),
+      themeMode: ThemeMode.light,
       home: Expenses(),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
