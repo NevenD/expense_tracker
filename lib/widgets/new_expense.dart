@@ -1,12 +1,13 @@
 import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMd('hr_HR');
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  final Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() {
@@ -69,6 +70,8 @@ class _NewExpenseState extends State<NewExpense> {
       date: _selectedDate!,
       category: _selectedCategory!,
     );
+
+    widget.onAddExpense(expense);
 
     Navigator.of(context).pop(expense);
   }
