@@ -36,6 +36,43 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    final enteredNumber = double.tryParse(_amountController.text);
+    final amountIsInvalid = enteredNumber == null || enteredNumber <= 0;
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null ||
+        _selectedCategory == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Invalid input'),
+          content: const Text(
+            'Please make sure a valid title, amount, date and category were entered!',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Okay'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    final expense = Expense(
+      title: _titleController.text,
+      amount: enteredNumber,
+      date: _selectedDate!,
+      category: _selectedCategory!,
+    );
+
+    Navigator.of(context).pop(expense);
+  }
+
   @override
   void dispose() {
     // only stateful widgets can have dispose method
@@ -124,7 +161,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: _submitExpenseData,
                 child: const Text('Save Expense'),
               ),
             ],
