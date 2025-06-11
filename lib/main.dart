@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:expense_tracker/widgets/expenses.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -12,6 +13,9 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // we can defined it to lock the orientation of the app
+  // we need to add await before it to wait for the system to set the preferred orientations
+  // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MaterialApp(
       darkTheme: ThemeData().copyWith(
